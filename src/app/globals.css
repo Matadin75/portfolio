@@ -1,30 +1,27 @@
 /* ---------- Tokens ---------- */
 
+/* Light theme: the dark palette's slate-and-teal family, turned around. */
 :root {
-  --bg: #fbf8f3;
-  --surface: rgba(255, 255, 255, 0.72);
-  --surface-solid: #ffffff;
-  --text: #15172b;
-  --muted: #5b5f7a;
-  --line: rgba(21, 23, 43, 0.1);
-  --chip: rgba(21, 23, 43, 0.05);
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-hover: #f1f5f9;
+  --accent: #0f766e;
+  --accent-hover: #115e59;
+  --on-accent: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --border: #e2e8f0;
 
-  --c-aqua: #0d9488;
-  --c-violet: #7c3aed;
-  --c-coral: #e11d48;
-  --c-amber: #d97706;
-  --c-lime: #4d7c0f;
+  --blob-1: #99f6e4;
+  --blob-2: #cbd5e1;
+  --blob-3: #5eead4;
+  --blob-opacity: 0.5;
+  --glow: rgba(20, 184, 166, 0.1);
 
-  --blob-1: #5eead4;
-  --blob-2: #c4b5fd;
-  --blob-3: #fda4af;
-  --blob-opacity: 0.55;
-  --glow: rgba(124, 58, 237, 0.1);
-
-  /* Both gradients end on the colour they start with, so the shimmer loop has no seam. */
-  --gradient: linear-gradient(100deg, var(--c-aqua), var(--c-violet) 30%, var(--c-coral) 55%, var(--c-amber) 78%, var(--c-aqua));
-  /* Deep enough for white text in both colour schemes. */
-  --gradient-deep: linear-gradient(100deg, #0f766e, #6d28d9 30%, #be123c 55%, #b45309 78%, #0f766e);
+  /* Ends on the colour it starts with, so the shimmer loop has no seam. */
+  --gradient: linear-gradient(100deg, var(--text-primary), var(--accent) 50%, var(--text-primary));
+  /* Deep enough for white text in both themes. */
+  --gradient-deep: linear-gradient(135deg, #0f766e, #134e4a);
   --radius: 18px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --font-display: system-ui, sans-serif;
@@ -36,49 +33,41 @@
    The media query only decides when that script can't run. Keep the two dark blocks identical. */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #0a0b14;
-  --surface: rgba(255, 255, 255, 0.04);
-  --surface-solid: #12141f;
-  --text: #eef0ff;
-  --muted: #a3a8c3;
-  --line: rgba(255, 255, 255, 0.09);
-  --chip: rgba(255, 255, 255, 0.06);
+  --bg: #0b1120;
+  --surface: #151f32;
+  --surface-hover: #202d43;
+  --accent: #14b8a6;
+  --accent-hover: #0d9488;
+  --on-accent: #0b1120;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border: #334155;
 
-  --c-aqua: #5eead4;
-  --c-violet: #a78bfa;
-  --c-coral: #fb7185;
-  --c-amber: #fbbf24;
-  --c-lime: #a3e635;
-
-  --blob-1: #0f766e;
-  --blob-2: #6d28d9;
-  --blob-3: #be123c;
+  --blob-1: #0d9488;
+  --blob-2: #1e3a5f;
+  --blob-3: #115e59;
   --blob-opacity: 0.38;
-  --glow: rgba(167, 139, 250, 0.12);
+  --glow: rgba(20, 184, 166, 0.12);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     color-scheme: dark;
-    --bg: #0a0b14;
-    --surface: rgba(255, 255, 255, 0.04);
-    --surface-solid: #12141f;
-    --text: #eef0ff;
-    --muted: #a3a8c3;
-    --line: rgba(255, 255, 255, 0.09);
-    --chip: rgba(255, 255, 255, 0.06);
+    --bg: #0b1120;
+    --surface: #151f32;
+    --surface-hover: #202d43;
+    --accent: #14b8a6;
+    --accent-hover: #0d9488;
+    --on-accent: #0b1120;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --border: #334155;
 
-    --c-aqua: #5eead4;
-    --c-violet: #a78bfa;
-    --c-coral: #fb7185;
-    --c-amber: #fbbf24;
-    --c-lime: #a3e635;
-
-    --blob-1: #0f766e;
-    --blob-2: #6d28d9;
-    --blob-3: #be123c;
+    --blob-1: #0d9488;
+    --blob-2: #1e3a5f;
+    --blob-3: #115e59;
     --blob-opacity: 0.38;
-    --glow: rgba(167, 139, 250, 0.12);
+    --glow: rgba(20, 184, 166, 0.12);
   }
 }
 
@@ -96,7 +85,7 @@ html {
 body {
   margin: 0;
   background: var(--bg);
-  color: var(--text);
+  color: var(--text-primary);
   font-family: var(--font-body), system-ui, sans-serif;
   font-size: 16px;
   line-height: 1.6;
@@ -130,12 +119,12 @@ p {
 }
 
 ::selection {
-  background: var(--c-violet);
-  color: #fff;
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
 :focus-visible {
-  outline: 2px solid var(--c-violet);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 6px;
 }
@@ -147,7 +136,7 @@ p {
 }
 
 .muted {
-  color: var(--muted);
+  color: var(--text-secondary);
 }
 
 .sr-only {
@@ -174,7 +163,7 @@ p {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--c-violet);
+  color: var(--accent);
 }
 
 /* ---------- Background: aurora + cursor glow ---------- */
@@ -192,7 +181,7 @@ p {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(var(--line) 1px, transparent 1px);
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
   background-size: 28px 28px;
   mask-image: linear-gradient(to bottom, black, transparent 70%);
 }
@@ -253,7 +242,7 @@ p {
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
   background: color-mix(in srgb, var(--bg) 70%, transparent);
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--border);
 }
 
 .nav-inner {
@@ -269,10 +258,8 @@ p {
   width: 38px;
   height: 38px;
   border-radius: 11px;
-  background: var(--gradient-deep);
-  background-size: 200% auto;
-  animation: shimmer 8s linear infinite;
-  color: #fff;
+  background: var(--accent);
+  color: var(--on-accent);
   font-family: var(--font-display), sans-serif;
   font-weight: 700;
   font-size: 0.95rem;
@@ -288,15 +275,15 @@ p {
 .nav-links a {
   padding: 6px 12px;
   border-radius: 999px;
-  color: var(--muted);
+  color: var(--text-secondary);
   font-size: 0.92rem;
   text-decoration: none;
   transition: color 0.2s, background 0.2s;
 }
 
 .nav-links a:hover {
-  color: var(--text);
-  background: var(--chip);
+  color: var(--text-primary);
+  background: var(--surface-hover);
 }
 
 .theme-toggle {
@@ -306,21 +293,21 @@ p {
   width: 38px;
   height: 38px;
   padding: 0;
-  border: 1px solid var(--line);
+  border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--surface);
-  color: var(--text);
+  color: var(--text-primary);
   cursor: pointer;
   transition: border-color 0.25s, transform 0.25s var(--ease);
 }
 
 .theme-toggle:hover {
-  border-color: var(--c-violet);
+  border-color: var(--accent);
   transform: rotate(-12deg);
 }
 
 .theme-toggle:focus-visible {
-  outline: 2px solid var(--c-violet);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
@@ -370,11 +357,11 @@ p {
   display: inline-flex;
   align-items: center;
   padding: 11px 20px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--surface);
   backdrop-filter: blur(8px);
-  color: var(--text);
+  color: var(--text-primary);
   font-weight: 500;
   text-decoration: none;
   transition: transform 0.25s var(--ease), border-color 0.25s, box-shadow 0.25s;
@@ -382,21 +369,20 @@ p {
 
 .button:hover {
   transform: translateY(-2px);
-  border-color: var(--c-violet);
+  border-color: var(--accent);
 }
 
 .button.primary {
   border: 0;
-  /* Deep enough for white text in both colour schemes. */
-  background: #6d28d9;
-  color: #fff;
-  box-shadow: 0 8px 24px -8px var(--c-violet);
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: 0 8px 24px -10px var(--accent);
   transition: transform 0.25s var(--ease), background-color 0.25s, box-shadow 0.25s;
 }
 
 .button.primary:hover {
-  background: #5b21b6;
-  box-shadow: 0 14px 34px -10px var(--c-violet);
+  background: var(--accent-hover);
+  box-shadow: 0 14px 34px -12px var(--accent);
 }
 
 .button.small {
@@ -422,11 +408,11 @@ p {
   gap: 10px;
   align-self: flex-start;
   padding: 6px 14px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--surface);
   backdrop-filter: blur(8px);
-  color: var(--muted);
+  color: var(--text-secondary);
   font-size: 0.9rem;
 }
 
@@ -435,7 +421,7 @@ p {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--c-aqua);
+  background: var(--accent);
 }
 
 .pulse::after {
@@ -443,7 +429,7 @@ p {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: var(--c-aqua);
+  background: var(--accent);
   animation: ping 2s var(--ease) infinite;
 }
 
@@ -467,14 +453,14 @@ p {
 
 .rotator-word {
   display: inline-block;
-  color: var(--c-violet);
+  color: var(--accent);
   animation: word-in 0.6s var(--ease) both;
 }
 
 .lead {
   max-width: 620px;
   font-size: 1.12rem;
-  color: var(--muted);
+  color: var(--text-secondary);
 }
 
 .stats {
@@ -489,14 +475,14 @@ p {
   flex-direction: column-reverse;
   min-width: 150px;
   padding: 16px 20px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface);
   backdrop-filter: blur(10px);
 }
 
 .stats dt {
-  color: var(--muted);
+  color: var(--text-secondary);
   font-size: 0.88rem;
 }
 
@@ -519,7 +505,7 @@ p {
 .marquee {
   overflow: hidden;
   padding: 18px 0;
-  border-block: 1px solid var(--line);
+  border-block: 1px solid var(--border);
   background: var(--surface);
   mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
@@ -542,14 +528,14 @@ p {
   font-family: var(--font-display), sans-serif;
   font-size: 1.15rem;
   font-weight: 500;
-  color: var(--muted);
+  color: var(--text-secondary);
   white-space: nowrap;
 }
 
 .marquee-track li::before {
   content: "✦";
   margin-right: 44px;
-  color: var(--c-violet);
+  color: var(--accent);
   font-size: 0.8em;
 }
 
@@ -599,10 +585,10 @@ p {
 
 .filters button {
   padding: 7px 16px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--surface);
-  color: var(--muted);
+  color: var(--text-secondary);
   font: inherit;
   font-size: 0.9rem;
   cursor: pointer;
@@ -610,12 +596,12 @@ p {
 }
 
 .filters button:hover {
-  color: var(--text);
+  color: var(--text-primary);
 }
 
 .filters button[aria-pressed="true"] {
   border-color: transparent;
-  background: var(--text);
+  background: var(--text-primary);
   color: var(--bg);
 }
 
@@ -630,7 +616,6 @@ p {
 }
 
 .card {
-  --accent: var(--c-violet);
   position: relative;
   display: flex;
   flex: 1;
@@ -638,7 +623,7 @@ p {
   gap: 16px;
   padding: 28px;
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface);
   backdrop-filter: blur(12px);
@@ -646,7 +631,7 @@ p {
 }
 
 .card::before {
-  /* Spotlight that follows the pointer, tinted with the project's colour. */
+  /* Spotlight that follows the pointer, tinted with the accent. */
   content: "";
   position: absolute;
   inset: 0;
@@ -738,7 +723,7 @@ p {
   margin: 0;
   padding: 0;
   list-style: none;
-  color: var(--muted);
+  color: var(--text-secondary);
   font-size: 0.95rem;
 }
 
@@ -781,7 +766,7 @@ p {
 .chips li {
   padding: 4px 11px;
   border-radius: 8px;
-  background: var(--chip);
+  background: var(--surface-hover);
   font-size: 0.8rem;
 }
 
@@ -828,7 +813,7 @@ p {
   bottom: 8px;
   width: 2px;
   border-radius: 2px;
-  background: linear-gradient(var(--c-aqua), var(--c-violet), var(--c-coral));
+  background: linear-gradient(var(--accent), var(--border));
 }
 
 .timeline > li {
@@ -844,8 +829,8 @@ p {
   height: 12px;
   border-radius: 50%;
   background: var(--bg);
-  border: 2px solid var(--c-violet);
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--c-violet) 18%, transparent);
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
 .timeline > li + li {
@@ -854,7 +839,7 @@ p {
 
 .period {
   margin-top: 4px;
-  color: var(--c-violet);
+  color: var(--accent);
   font-size: 0.9rem;
   font-weight: 500;
 }
@@ -862,7 +847,7 @@ p {
 .timeline ul {
   margin: 10px 0 0;
   padding-left: 18px;
-  color: var(--muted);
+  color: var(--text-secondary);
 }
 
 /* ---------- Skills ---------- */
@@ -880,7 +865,7 @@ p {
 .skill-card {
   flex: 1;
   padding: 20px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface);
   backdrop-filter: blur(10px);
@@ -889,7 +874,7 @@ p {
 
 .skill-card:hover {
   transform: translateY(-3px);
-  border-color: color-mix(in srgb, var(--c-aqua) 50%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 50%, transparent);
 }
 
 .skill-card h3 {
@@ -908,8 +893,6 @@ p {
   padding: clamp(32px, 6vw, 64px);
   border-radius: 28px;
   background: var(--gradient-deep);
-  background-size: 200% auto;
-  animation: shimmer 12s linear infinite;
   color: #fff;
 }
 

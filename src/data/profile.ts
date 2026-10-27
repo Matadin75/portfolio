@@ -1,8 +1,5 @@
 export type Category = "web" | "mobile" | "backend" | "payments";
 
-/** Colour tokens defined in globals.css as --c-<name>. */
-export type Accent = "aqua" | "violet" | "coral" | "amber" | "lime";
-
 export type Project = {
   slug: string;
   name: string;
@@ -13,7 +10,6 @@ export type Project = {
   highlights: string[];
   stack: string[];
   categories: Category[];
-  accent: Accent;
 };
 
 export type Role = {
@@ -83,7 +79,6 @@ export const projects: Project[] = [
     ],
     stack: ["TypeScript", "Preact", "Vite", "Vitest", ".NET 10", "MySQL", "React Native", "Docker"],
     categories: ["web", "mobile", "backend", "payments"],
-    accent: "aqua",
   },
   {
     slug: "secondspace",
@@ -99,7 +94,6 @@ export const projects: Project[] = [
     ],
     stack: [".NET MAUI", "ASP.NET Core", "SignalR", "EF Core", "MySQL", "AWS"],
     categories: ["web", "mobile", "backend"],
-    accent: "violet",
   },
   {
     slug: "youtoo",
@@ -115,7 +109,6 @@ export const projects: Project[] = [
     ],
     stack: ["React Native", "TypeScript", ".NET MAUI", "ASP.NET Core", "Quartz", "OneSignal"],
     categories: ["web", "mobile", "backend", "payments"],
-    accent: "coral",
   },
   {
     slug: "uptooyoo",
@@ -131,7 +124,6 @@ export const projects: Project[] = [
     ],
     stack: ["ASP.NET Core", "C#", "EF Core", "MySQL", "Quartz", "PayM8"],
     categories: ["web", "backend", "payments"],
-    accent: "amber",
   },
   {
     slug: "forfishsake",
@@ -146,7 +138,6 @@ export const projects: Project[] = [
     ],
     stack: ["React Native", "TypeScript", "ASP.NET Core", "MySQL", "OneSignal"],
     categories: ["mobile", "backend", "payments"],
-    accent: "lime",
   },
 ];
 

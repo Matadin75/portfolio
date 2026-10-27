@@ -80,7 +80,7 @@ describe("ThemeToggle", () => {
     render(<ThemeToggle />);
 
     await userEvent.click(toggle());
-    expect(meta.content).toBe("#0a0b14");
+    expect(meta.content).toBe("#0b1120");
     meta.remove();
   });
 });

@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties, PointerEvent } from "react";
+import type { PointerEvent } from "react";
 import type { Project } from "@/data/profile";
 
 // Moves the card's spotlight to the pointer.
@@ -18,7 +18,6 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
       className="card"
       aria-labelledby={`${project.slug}-title`}
       onPointerMove={track}
-      style={{ "--accent": `var(--c-${project.accent})` } as CSSProperties}
     >
       <header className="card-head">
         <span className="card-index" aria-hidden="true">

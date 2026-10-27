@@ -3,7 +3,7 @@ export type Theme = "light" | "dark";
 const KEY = "theme";
 
 /** Page backgrounds, mirrored from --bg in globals.css, for the browser's toolbar colour. */
-export const themeColors: Record<Theme, string> = { light: "#fbf8f3", dark: "#0a0b14" };
+export const themeColors: Record<Theme, string> = { light: "#f8fafc", dark: "#0b1120" };
 
 /** The visitor's own pick, if they made one. Storage can throw (private windows, blocked cookies), which counts as no pick. */
 export function savedTheme(): Theme | null {

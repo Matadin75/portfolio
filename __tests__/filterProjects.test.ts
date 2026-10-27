@@ -10,7 +10,6 @@ const make = (slug: string, categories: Project["categories"]): Project => ({
   highlights: [],
   stack: [],
   categories,
-  accent: "aqua",
 });
 
 const projects = [make("a", ["web"]), make("b", ["mobile", "payments"]), make("c", ["web", "backend"])];
