@@ -205,6 +205,21 @@ p {
   animation: drift-b 34s ease-in-out infinite alternate;
 }
 
+.cursor-glow {
+  /* A soft light that follows the pointer across the background. */
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s;
+  background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%), var(--glow-teal), transparent 45%);
+}
+
+.cursor-glow.is-active {
+  opacity: 1;
+}
+
 /* ---------- Nav ---------- */
 
 .nav {

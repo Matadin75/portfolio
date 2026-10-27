@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
+import { CursorGlow } from "@/components/CursorGlow";
 import { SiteNav } from "@/components/SiteNav";
 import { profile } from "@/data/profile";
 import { themeColors, themeScript } from "@/lib/theme";
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <span className="light light-teal" />
           <span className="light light-violet" />
         </div>
+        <CursorGlow />
         <SiteNav name={profile.name} />
         <main id="main">{children}</main>
         <footer className="footer">
