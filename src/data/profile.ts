@@ -32,7 +32,7 @@ export const profile = {
   location: "Johannesburg, South Africa",
   email: "saien.matadin@gmail.com",
   // Fill these in to show the links; empty values are hidden.
-  github: "",
+  github: "https://github.com/Matadin75",
   linkedin: "",
   summary:
     "I build production web and mobile products end to end, from the UI through APIs to the database and deployment. Five live products, real-time chat, push notifications and payment integrations across TypeScript, React Native and .NET.",
