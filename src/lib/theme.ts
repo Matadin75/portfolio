@@ -2,6 +2,9 @@ export type Theme = "light" | "dark";
 
 const KEY = "theme";
 
+/** The brand is dark navy; light is the visitor's opt-in. */
+export const defaultTheme: Theme = "dark";
+
 /** Page backgrounds, mirrored from --bg in globals.css, for the browser's toolbar colour. */
 export const themeColors: Record<Theme, string> = { light: "#f8fafc", dark: "#0b1120" };
 
@@ -13,10 +16,6 @@ export function savedTheme(): Theme | null {
   } catch {
     return null;
   }
-}
-
-export function systemTheme(): Theme {
-  return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
 /** Switches the page to `theme`, and remembers it for next visit when `save` is set. */
@@ -33,5 +32,5 @@ export function applyTheme(theme: Theme, save = false) {
   }
 }
 
-/** Inlined in <head> so the right colours are set before first paint, with no flash of the other theme. */
-export const themeScript = `(function(){var t;try{t=localStorage.getItem("${KEY}")}catch(e){}if(t!=="light"&&t!=="dark")t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t})()`;
+/** Inlined in <head> so a saved choice is applied before first paint, with no flash of the other theme. */
+export const themeScript = `(function(){var t;try{t=localStorage.getItem("${KEY}")}catch(e){}document.documentElement.dataset.theme=t==="light"?"light":"${defaultTheme}"})()`;

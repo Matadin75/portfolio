@@ -1,38 +1,28 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { applyTheme, savedTheme, systemTheme, type Theme } from "@/lib/theme";
+import { applyTheme, defaultTheme, savedTheme, type Theme } from "@/lib/theme";
 
-/** Flips between light and dark. Until the visitor picks one, the page follows their system setting, live. */
+/** Flips between the dark default and light, and remembers the choice. */
 export function ThemeToggle() {
   // Unknown until mounted: the server can't see the visitor's choice. The icons follow data-theme in CSS meanwhile.
   const [theme, setTheme] = useState<Theme | null>(null);
 
   useEffect(() => {
     const set = document.documentElement.dataset.theme;
-    const current: Theme = set === "light" || set === "dark" ? set : (savedTheme() ?? systemTheme());
+    const current: Theme = set === "light" || set === "dark" ? set : (savedTheme() ?? defaultTheme);
     applyTheme(current);
     setTheme(current);
-
-    const media = window.matchMedia?.("(prefers-color-scheme: dark)");
-    const follow = () => {
-      if (savedTheme()) return;
-      const next = systemTheme();
-      applyTheme(next);
-      setTheme(next);
-    };
-    media?.addEventListener?.("change", follow);
-    return () => media?.removeEventListener?.("change", follow);
   }, []);
 
   const toggle = () => {
-    const next = theme === "dark" ? "light" : "dark";
+    const next = theme === "light" ? "dark" : "light";
     applyTheme(next, true);
     setTheme(next);
   };
 
   return (
-    <button type="button" className="theme-toggle" aria-label="Dark mode" aria-pressed={theme === "dark"} onClick={toggle}>
+    <button type="button" className="theme-toggle" aria-label="Light mode" aria-pressed={theme === "light"} onClick={toggle}>
       <svg className="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
       </svg>

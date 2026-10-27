@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
+import { SiteNav } from "@/components/SiteNav";
 import { profile } from "@/data/profile";
 import { themeColors, themeScript } from "@/lib/theme";
 import "./globals.css";
@@ -8,15 +9,18 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
 const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" });
 
 export const metadata: Metadata = {
-  title: `${profile.name} · ${profile.title}`,
-  description: profile.summary,
+  title: { default: `${profile.name} · ${profile.title}`, template: `%s · ${profile.name}` },
+  description: profile.message,
+  openGraph: {
+    title: `${profile.name} · ${profile.title}`,
+    description: profile.message,
+    type: "website",
+  },
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: themeColors.light },
-    { media: "(prefers-color-scheme: dark)", color: themeColors.dark },
-  ],
+  // The script in <head> keeps this in step with the toggle.
+  themeColor: themeColors.dark,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -25,12 +29,42 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${inter.variable} ${grotesk.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        {/* Without JS nothing would ever scroll in, so show it all; the theme toggle can't work, so hide it. */}
+        {/* Without JS nothing would ever scroll in, so show it all; the theme toggle and menu can't work, so hide them. */}
         <noscript>
-          <style>{`.reveal { opacity: 1 !important; transform: none !important; } .theme-toggle { display: none !important; }`}</style>
+          <style>{`.reveal, .rise { opacity: 1 !important; transform: none !important; animation: none !important; } .theme-toggle, .menu-button { display: none !important; }`}</style>
         </noscript>
       </head>
-      <body>{children}</body>
+      <body>
+        <a className="skip-link" href="#main">
+          Skip to content
+        </a>
+        <div className="ambient" aria-hidden="true">
+          <span className="light light-teal" />
+          <span className="light light-violet" />
+        </div>
+        <SiteNav name={profile.name} />
+        <main id="main">{children}</main>
+        <footer className="footer">
+          <div className="wrap footer-inner">
+            <p>
+              © {new Date().getFullYear()} {profile.name}
+            </p>
+            <p className="footer-links">
+              <a href={`mailto:${profile.email}`}>Email</a>
+              {profile.github && (
+                <a href={profile.github} target="_blank" rel="noreferrer">
+                  GitHub
+                </a>
+              )}
+              {profile.linkedin && (
+                <a href={profile.linkedin} target="_blank" rel="noreferrer">
+                  LinkedIn
+                </a>
+              )}
+            </p>
+          </div>
+        </footer>
+      </body>
     </html>
   );
 }

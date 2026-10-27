@@ -1,76 +1,40 @@
-import { act, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ThemeToggle } from "@/components/ThemeToggle";
-
-// A stand-in for the OS colour setting that tests can flip.
-let systemDark = false;
-let listeners: (() => void)[] = [];
-const setSystemDark = (dark: boolean) =>
-  act(() => {
-    systemDark = dark;
-    listeners.forEach((l) => l());
-  });
-
-beforeEach(() => {
-  window.matchMedia = ((query: string) => ({
-    get matches() {
-      return query.includes("dark") && systemDark;
-    },
-    addEventListener: (_: string, l: () => void) => listeners.push(l),
-    removeEventListener: (_: string, l: () => void) => (listeners = listeners.filter((x) => x !== l)),
-  })) as unknown as typeof window.matchMedia;
-});
+import { themeScript } from "@/lib/theme";
 
 afterEach(() => {
-  systemDark = false;
-  listeners = [];
   localStorage.clear();
   delete document.documentElement.dataset.theme;
-  // @ts-expect-error -- jsdom has no matchMedia; these tests opt in.
-  delete window.matchMedia;
 });
 
-const toggle = () => screen.getByRole("button", { name: "Dark mode" });
+const toggle = () => screen.getByRole("button", { name: "Light mode" });
 const theme = () => document.documentElement.dataset.theme;
 
 describe("ThemeToggle", () => {
-  it("picks up the theme the head script already set", () => {
-    document.documentElement.dataset.theme = "dark";
-    render(<ThemeToggle />);
-    expect(toggle()).toHaveAttribute("aria-pressed", "true");
-  });
-
-  it("falls back to the system setting when nothing is set", () => {
-    systemDark = true;
+  it("starts dark when nothing is saved", () => {
     render(<ThemeToggle />);
     expect(theme()).toBe("dark");
+    expect(toggle()).toHaveAttribute("aria-pressed", "false");
+  });
+
+  it("picks up the theme the head script already set", () => {
+    document.documentElement.dataset.theme = "light";
+    render(<ThemeToggle />);
     expect(toggle()).toHaveAttribute("aria-pressed", "true");
   });
 
   it("switches theme on click and remembers the choice", async () => {
     render(<ThemeToggle />);
-    expect(theme()).toBe("light");
 
     await userEvent.click(toggle());
-    expect(theme()).toBe("dark");
+    expect(theme()).toBe("light");
     expect(toggle()).toHaveAttribute("aria-pressed", "true");
-    expect(localStorage.getItem("theme")).toBe("dark");
-
-    await userEvent.click(toggle());
-    expect(theme()).toBe("light");
     expect(localStorage.getItem("theme")).toBe("light");
-  });
-
-  it("follows the system live until the visitor picks, then sticks with their pick", async () => {
-    render(<ThemeToggle />);
-    setSystemDark(true);
-    expect(theme()).toBe("dark");
 
     await userEvent.click(toggle());
-    expect(theme()).toBe("light");
-    setSystemDark(false);
-    setSystemDark(true);
-    expect(theme()).toBe("light");
+    expect(theme()).toBe("dark");
+    expect(localStorage.getItem("theme")).toBe("dark");
   });
 
   it("keeps the browser toolbar colour in step", async () => {
@@ -80,7 +44,23 @@ describe("ThemeToggle", () => {
     render(<ThemeToggle />);
 
     await userEvent.click(toggle());
-    expect(meta.content).toBe("#0b1120");
+    expect(meta.content).toBe("#f8fafc");
     meta.remove();
+  });
+});
+
+describe("theme script", () => {
+  const run = () => new Function(themeScript)();
+
+  it("applies a saved light choice before paint", () => {
+    localStorage.setItem("theme", "light");
+    run();
+    expect(theme()).toBe("light");
+  });
+
+  it("defaults to dark, including for junk in storage", () => {
+    localStorage.setItem("theme", "purple");
+    run();
+    expect(theme()).toBe("dark");
   });
 });
