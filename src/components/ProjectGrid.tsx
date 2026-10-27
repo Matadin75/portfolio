@@ -4,6 +4,7 @@ import { useState } from "react";
 import { categoryLabels, type Project } from "@/data/profile";
 import { filterProjects, usedCategories, type Filter } from "@/lib/filterProjects";
 import { ProjectCard } from "./ProjectCard";
+import { Reveal } from "./Reveal";
 
 export function ProjectGrid({ projects }: { projects: Project[] }) {
   const [filter, setFilter] = useState<Filter>("all");
@@ -28,8 +29,10 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
         Showing {shown.length} of {projects.length} projects
       </p>
       <div className="grid">
-        {shown.map((p) => (
-          <ProjectCard key={p.slug} project={p} />
+        {shown.map((p, i) => (
+          <Reveal key={p.slug} delay={(i % 2) * 120}>
+            <ProjectCard project={p} index={projects.indexOf(p)} />
+          </Reveal>
         ))}
       </div>
     </>

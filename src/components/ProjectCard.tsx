@@ -1,12 +1,30 @@
+"use client";
+
+import type { CSSProperties, PointerEvent } from "react";
 import type { Project } from "@/data/profile";
 
-export function ProjectCard({ project }: { project: Project }) {
+// Moves the card's spotlight to the pointer.
+function track(e: PointerEvent<HTMLElement>) {
+  const box = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty("--x", `${e.clientX - box.left}px`);
+  e.currentTarget.style.setProperty("--y", `${e.clientY - box.top}px`);
+}
+
+export function ProjectCard({ project, index }: { project: Project; index: number }) {
   const host = project.url ? new URL(project.url).host.replace(/^www\./, "") : null;
 
   return (
-    <article className="card" aria-labelledby={`${project.slug}-title`}>
+    <article
+      className="card"
+      aria-labelledby={`${project.slug}-title`}
+      onPointerMove={track}
+      style={{ "--accent": `var(--c-${project.accent})` } as CSSProperties}
+    >
       <header className="card-head">
-        <div>
+        <span className="card-index" aria-hidden="true">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <div className="card-title">
           <h3 id={`${project.slug}-title`}>{project.name}</h3>
           <p className="muted">
             {project.role} · {project.period}
@@ -18,7 +36,7 @@ export function ProjectCard({ project }: { project: Project }) {
           </a>
         )}
       </header>
-      <p>{project.summary}</p>
+      <p className="card-summary">{project.summary}</p>
       <ul className="highlights">
         {project.highlights.map((h) => (
           <li key={h}>{h}</li>

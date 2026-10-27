@@ -1,5 +1,8 @@
 export type Category = "web" | "mobile" | "backend" | "payments";
 
+/** Colour tokens defined in globals.css as --c-<name>. */
+export type Accent = "aqua" | "violet" | "coral" | "amber" | "lime";
+
 export type Project = {
   slug: string;
   name: string;
@@ -10,6 +13,7 @@ export type Project = {
   highlights: string[];
   stack: string[];
   categories: Category[];
+  accent: Accent;
 };
 
 export type Role = {
@@ -35,8 +39,34 @@ export const profile = {
   github: "https://github.com/Matadin75",
   linkedin: "",
   summary:
-    "I build production web and mobile products end to end, from the UI through APIs to the database and deployment. Five live products, real-time chat, push notifications and payment integrations across TypeScript, React Native and .NET.",
+    "From the first screen to the database and the deploy. Five products shipped with real-time chat, push notifications and payments, across TypeScript, React Native and .NET.",
+  // Cycled in the hero: "I build <word> end to end."
+  builds: ["web platforms", "mobile apps", "payment flows", "real-time chat"],
 };
+
+export const stats: { value: number; suffix?: string; label: string }[] = [
+  { value: 5, label: "products shipped" },
+  { value: 4, label: "payment rails integrated" },
+  { value: 4, suffix: "+", label: "years full-stack" },
+];
+
+export const techStrip = [
+  "TypeScript",
+  "React",
+  "Next.js",
+  "React Native",
+  ".NET",
+  "ASP.NET Core",
+  "SignalR",
+  "MySQL",
+  "Docker",
+  "AWS",
+  "OneSignal",
+  "Stitch",
+  "PayM8",
+  "Jest",
+  "Vitest",
+];
 
 export const projects: Project[] = [
   {
@@ -53,6 +83,7 @@ export const projects: Project[] = [
     ],
     stack: ["TypeScript", "Preact", "Vite", "Vitest", ".NET 10", "MySQL", "React Native", "Docker"],
     categories: ["web", "mobile", "backend", "payments"],
+    accent: "aqua",
   },
   {
     slug: "secondspace",
@@ -68,6 +99,7 @@ export const projects: Project[] = [
     ],
     stack: [".NET MAUI", "ASP.NET Core", "SignalR", "EF Core", "MySQL", "AWS"],
     categories: ["web", "mobile", "backend"],
+    accent: "violet",
   },
   {
     slug: "youtoo",
@@ -83,6 +115,7 @@ export const projects: Project[] = [
     ],
     stack: ["React Native", "TypeScript", ".NET MAUI", "ASP.NET Core", "Quartz", "OneSignal"],
     categories: ["web", "mobile", "backend", "payments"],
+    accent: "coral",
   },
   {
     slug: "uptooyoo",
@@ -98,6 +131,7 @@ export const projects: Project[] = [
     ],
     stack: ["ASP.NET Core", "C#", "EF Core", "MySQL", "Quartz", "PayM8"],
     categories: ["web", "backend", "payments"],
+    accent: "amber",
   },
   {
     slug: "forfishsake",
@@ -112,6 +146,7 @@ export const projects: Project[] = [
     ],
     stack: ["React Native", "TypeScript", "ASP.NET Core", "MySQL", "OneSignal"],
     categories: ["mobile", "backend", "payments"],
+    accent: "lime",
   },
 ];
 
