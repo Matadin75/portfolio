@@ -67,8 +67,8 @@ export const profile = {
     "I build web platforms, mobile applications, payment flows, and real-time experiences end to end — from the first screen to the database and production deployment.",
   message: "I don't just write code. I build, integrate, and ship complete digital products.",
   about: [
-    "I'm a full-stack developer in Johannesburg. Since 2022 I've built, deployed and supported web and mobile products at The Rich Rewards Group, owning features from the interface through the API and database to production.",
-    "Across five products that has meant App Store and Google Play subscriptions, card payments and payouts, real-time chat and video calls, push notifications, bookings, background workers, admin tools and an AI game generator, in TypeScript, JavaScript, React Native and .NET. Before that I built enterprise apps for contracts, procurement and logistics in C# and Xamarin.Forms, following Clean Architecture.",
+    "I'm a full-stack developer in Johannesburg, building software professionally since 2020. I've built, deployed and supported web and mobile products at The Rich Rewards Group, owning features from the interface through the API and database to production.",
+    "Across five products that has meant App Store and Google Play subscriptions, card payments and payouts, real-time chat and video calls, push notifications, bookings, background workers, admin tools and an AI game generator, in TypeScript, JavaScript, React Native and .NET. From 2020 to 2022 I built enterprise apps for contracts, procurement and logistics in C# and Xamarin.Forms, following Clean Architecture.",
   ],
 };
 
@@ -123,13 +123,12 @@ export const projects: Project[] = [
   {
     slug: "secondspace",
     name: "SecondSpace",
-    url: "https://www.secondspace.co.za",
-    status: "live",
+    status: "offline",
     role: "Main developer",
     period: "2022 – 2025",
     summary: "A student-living platform for university residences: student app, management portal and API.",
     overview:
-      "SecondSpace is a student-living platform for university residences. Students use the mobile app, residence staff use the management portal, and both run on one API. As main developer from 2022 to 2025 I wrote most of the API and portal and built the .NET MAUI student app on my own, extending features colleagues had started, such as textbooks, tutors and events.",
+      "SecondSpace was a student-living platform for university residences. Students used the mobile app, residence staff used the management portal, and both ran on one API. As main developer from 2022 to 2025 I wrote most of the API and portal and built the .NET MAUI student app on my own, extending features colleagues had started, such as textbooks, tutors and events. The product is no longer running.",
     highlights: [
       "Built most of the ASP.NET Core API and management portal: residence applications and approvals, staff and student management with CSV bulk upload, and maintenance tickets.",
       "Real-time residence group chat and maintenance-ticket chat over SignalR on the web portal and the mobile app, with push through OneSignal, later moved to AWS SNS.",

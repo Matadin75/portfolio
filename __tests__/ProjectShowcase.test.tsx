@@ -62,8 +62,8 @@ describe("project data", () => {
     }
   });
 
-  it("keeps YouToo and Uptooyoo as past projects", () => {
+  it("keeps SecondSpace, YouToo and Uptooyoo as past projects", () => {
     const past = projects.filter((p) => p.status === "offline").map((p) => p.name);
-    expect(past).toEqual(["YouToo", "Uptooyoo"]);
+    expect(past).toEqual(["SecondSpace", "YouToo", "Uptooyoo"]);
   });
 });
