@@ -5,6 +5,7 @@ import { projects, type Project } from "@/data/profile";
 
 const [ice, second] = projects;
 const youtoo = projects.find((p) => p.slug === "youtoo")!;
+const fittrack = projects.find((p) => p.slug === "fittrack")!;
 
 describe("case study pages", () => {
   it("are built for every project", () => {
@@ -49,6 +50,13 @@ describe("CaseStudy", () => {
     const toc = screen.getByRole("navigation", { name: "On this page" });
     expect(within(toc).getByRole("link", { name: "Technical decisions" })).toHaveAttribute("href", "#decisions");
     expect(within(toc).getByRole("link", { name: "Outcomes" })).toHaveAttribute("href", "#outcomes");
+  });
+
+  it("names the core column for an app with no server", () => {
+    render(<CaseStudy project={fittrack} index={5} next={ice} />);
+    expect(screen.getByText("On the phone")).toBeInTheDocument();
+    expect(screen.queryByText("Backend")).toBeNull();
+    expect(screen.getAllByText("Personal project").length).toBeGreaterThan(0);
   });
 
   it("draws the data store only when one is known", () => {

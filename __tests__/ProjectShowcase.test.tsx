@@ -38,7 +38,7 @@ describe("ProjectShowcase", () => {
         expect(within(c).queryByText("No longer live")).toBeNull();
       } else {
         expect(within(c).queryByRole("link", { name: /opens in a new tab/ })).toBeNull();
-        expect(within(c).getByText("No longer live")).toBeInTheDocument();
+        expect(within(c).getByText(p.status === "personal" ? "Personal project" : "No longer live")).toBeInTheDocument();
       }
     }
   });
@@ -65,5 +65,12 @@ describe("project data", () => {
   it("keeps SecondSpace, YouToo and Uptooyoo as past projects", () => {
     const past = projects.filter((p) => p.status === "offline").map((p) => p.name);
     expect(past).toEqual(["SecondSpace", "YouToo", "Uptooyoo"]);
+  });
+
+  it("marks FitTrack as a personal project rather than a live or retired one", () => {
+    render(<ProjectShowcase projects={projects} />);
+    const fittrack = screen.getByRole("article", { name: "FitTrack" });
+    expect(within(fittrack).getByText("Personal project")).toBeInTheDocument();
+    expect(within(fittrack).queryByText("No longer live")).toBeNull();
   });
 });

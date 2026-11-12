@@ -28,6 +28,7 @@ describe("projectsUsing", () => {
     expect(names("OneSignal")).toEqual(["ICE Games", "SecondSpace", "YouToo", "Uptooyoo", "ForFishSake"]);
     expect(names("Google Maps")).toEqual(["SecondSpace", "YouToo"]);
     expect(names("Claude API")).toEqual(["ICE Games"]);
+    expect(names("SQLite")).toEqual(["FitTrack"]);
     expect(names("Identity / JWT")).toEqual(["ICE Games", "SecondSpace", "YouToo", "Uptooyoo", "ForFishSake"]);
   });
 
@@ -57,7 +58,7 @@ describe("SkillsExplorer", () => {
   it("is honest about skills the featured projects don't use", async () => {
     render(<SkillsExplorer groups={skills} projects={projects} />);
     await userEvent.click(screen.getByRole("button", { name: "Xamarin.Forms" }));
-    expect(readout()).toHaveTextContent("Xamarin.Forms is part of my toolkit, but not in the five featured projects.");
+    expect(readout()).toHaveTextContent("Xamarin.Forms is part of my toolkit, but not in any of the featured projects.");
   });
 
   it("clears when the same skill is picked again", async () => {

@@ -2141,6 +2141,31 @@ p {
   fill: var(--bg);
 }
 
+.pv-ring-track {
+  fill: none;
+  stroke: var(--surface-hover);
+  stroke-width: 10;
+}
+
+.pv-ring {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 10;
+  stroke-linecap: round;
+}
+
+.pv-ring-small {
+  stroke-width: 7;
+}
+
+.pv-route {
+  fill: none;
+  stroke: var(--violet);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .pv-hero-band {
   fill: color-mix(in srgb, var(--accent) 20%, var(--surface));
 }

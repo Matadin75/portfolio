@@ -43,7 +43,7 @@ export function SkillsExplorer({ groups, projects }: { groups: Group[]; projects
           )}
           {picked && used.length === 0 && (
             <p>
-              <strong>{picked}</strong> is part of my toolkit, but not in the five featured projects.
+              <strong>{picked}</strong> is part of my toolkit, but not in any of the featured projects.
             </p>
           )}
         </div>

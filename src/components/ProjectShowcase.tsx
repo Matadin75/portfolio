@@ -6,8 +6,11 @@ import { Reveal } from "./Reveal";
 
 const number = (i: number) => String(i + 1).padStart(2, "0");
 
-/** "Visit site" for live products, a quiet note for retired ones. */
+/** "Visit site" for live products, a quiet note for personal and retired ones. */
 export function LiveLink({ project }: { project: Project }) {
+  if (project.status === "personal") {
+    return <span className="status-offline">Personal project</span>;
+  }
   if (project.status === "offline" || !project.url) {
     return <span className="status-offline">No longer live</span>;
   }

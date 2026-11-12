@@ -3,6 +3,8 @@ export type Category = "web" | "mobile" | "backend" | "payments";
 /** How the pieces of a product talk to each other, drawn as a diagram on its case study. Only list what's known. */
 export type Architecture = {
   clients: string[];
+  /** The middle column's heading; "Backend" unless the product has no server. */
+  coreLabel?: string;
   api: string;
   data: string[];
   services: string[];
@@ -13,7 +15,8 @@ export type Project = {
   name: string;
   /** The live product. Leave it out once the product stops running. */
   url?: string;
-  status: "live" | "offline";
+  /** "personal": built for myself and installed on my own phone, not released to the public. */
+  status: "live" | "offline" | "personal";
   role: string;
   period: string;
   /** One line for cards. */
@@ -258,6 +261,41 @@ export const projects: Project[] = [
     stack: ["React Native", "TypeScript", "ASP.NET Core", "EF Core", "MySQL", "OneSignal", "Firebase", "AWS", "Docker", "Identity / JWT"],
     categories: ["mobile", "backend", "payments"],
   },
+  {
+    slug: "fittrack",
+    name: "FitTrack",
+    status: "personal",
+    role: "Sole developer",
+    period: "2026",
+    summary: "A personal fitness app for food, training and runs that keeps everything on the phone, with no accounts and no server.",
+    overview:
+      "FitTrack is a fitness app I built for myself in Expo and React Native: a food diary with barcode scanning, recipes, strength training from an 876-exercise library, GPS run tracking, and weight and step sync from the phone's health store. Everything lives in a SQLite database on the phone, with no accounts and no server, so offline search, backups and sharing between phones all work on the device. It runs on Android and iOS as a native build that I install on my own phone rather than release through the stores.",
+    highlights: [
+      "A food diary against calorie and macro targets, with Open Food Facts search and barcode scanning, plus USDA generic foods, over 4,000 Woolworths products and South African fast-food menus bundled for offline search.",
+      "An adaptive calorie target that blends a Mifflin-St Jeor estimate with maintenance worked out from logged intake and weight trend, and credits workout and run burn scaled to the user's own resting rate.",
+      "GPS run tracking through a background location task that keeps recording with the screen locked, with route drawing, personal records, and distance or time challenges with stepping-stone milestones.",
+      "Strength training from a library of 876 exercises: routines built on-device from a plain-English description, a workout logger that pre-fills from the last session, and best sets with estimated 1RM.",
+    ],
+    features: [
+      { title: "Food diary and search", body: "Meals logged against daily calorie and macro targets, with copy-yesterday, water tracking and a logging streak. Search covers Open Food Facts online and bundled USDA, Woolworths and South African fast-food data offline, and anything scanned or opened is cached on the phone." },
+      { title: "Barcode scanning and custom foods", body: "Barcode scanning with expo-camera, and products that aren't found added as custom foods per 100 g or per serving, in kcal or kJ. Diary entries snapshot their nutrients, so later edits to a food don't rewrite history." },
+      { title: "Recipes and imports", body: "Recipes built from ingredients and logged by the serving, bulk-added by pasting an ingredient list that is matched to known foods, or read from an Instagram post's caption (name, servings, ingredients and method) in an in-app browser." },
+      { title: "Routines and workouts", body: "Routines with target sets, reps, weight and rest, starter programs, and a builder that turns \"45 min dumbbell upper body\" into a routine on-device. The workout logger has a previous column, a rest timer and personal records." },
+      { title: "Runs and challenges", body: "Location updates go to a background task (an Android foreground service, iOS background location), so runs keep recording with the screen locked. Each run shows its route, pace and what it earned against earlier runs, and challenges set milestones toward a distance or time goal." },
+      { title: "Calorie maths", body: "Maintenance blends a formula estimate with one observed from logged intake and weight trend, adjusting weekly within a cap. Workout and run burn is estimated from METs scaled to the user's resting rate, and only burn beyond their usual training is credited back." },
+      { title: "Health sync and reminders", body: "Read-only import of weigh-ins, body fat, lean mass and daily steps from Health Connect and Apple Health, and meal, weight and workout reminders scheduled a week ahead as one-off notifications, so each is dropped once it's done." },
+      { title: "Widgets, backups and sharing", body: "Six Android home-screen widgets for calories, macros, steps and live runs, refreshed with the app closed; whole-database backups to a folder outside the app; routines and recipes shared between phones as self-contained share codes; and a re-runnable MyFitnessPal history import." },
+    ],
+    architecture: {
+      clients: ["Android app", "iOS app", "Android home-screen widgets"],
+      coreLabel: "On the phone",
+      api: "Expo Router app · no server",
+      data: ["SQLite · expo-sqlite", "Bundled food and exercise data"],
+      services: ["Open Food Facts", "Health Connect", "Apple Health", "Background GPS", "Local notifications"],
+    },
+    stack: ["TypeScript", "React Native", "Expo", "Expo Router", "SQLite", "expo-camera", "expo-location", "expo-notifications", "Health Connect", "HealthKit", "react-native-svg"],
+    categories: ["mobile"],
+  },
 ];
 
 export const experience: Role[] = [
@@ -285,9 +323,9 @@ export const experience: Role[] = [
 export const skills: { group: string; items: string[] }[] = [
   { group: "Languages", items: ["TypeScript", "JavaScript", "C#", "SQL", "Java"] },
   { group: "Frontend and web", items: ["React", "Next.js", "Preact", "Vite", "jQuery", "WebSockets", "WebRTC"] },
-  { group: "Mobile", items: ["React Native", ".NET MAUI", "Xamarin.Forms"] },
+  { group: "Mobile", items: ["React Native", "Expo", ".NET MAUI", "Xamarin.Forms"] },
   { group: "Backend and architecture", items: ["ASP.NET Core", "REST APIs", "SignalR", "Identity / JWT", "Quartz", "Clean Architecture"] },
-  { group: "Databases", items: ["MySQL", "SQL Server", "EF Core"] },
+  { group: "Databases", items: ["MySQL", "SQL Server", "SQLite", "EF Core"] },
   { group: "Testing and delivery", items: ["Jest", "React Testing Library", "Vitest", "xUnit", "GitHub Actions", "Docker"] },
   { group: "Integrations and cloud", items: ["AWS", "Stitch", "PayM8", "App Store / Google Play billing", "OneSignal", "Firebase", "Google Maps", "Claude API"] },
 ];

@@ -21,14 +21,17 @@ const Flow = ({ vertical }: { vertical?: boolean }) => (
   </div>
 );
 
-/** Clients call one API; the API owns the data and talks to outside services. Columns with nothing known are left out. */
+/**
+ * Clients call one core (usually an API, or the app itself when there is no server); the core owns the
+ * data and talks to outside services. Columns with nothing known are left out.
+ */
 export function ArchitectureDiagram({ architecture: a }: { architecture: Architecture }) {
   return (
     <figure className="arch">
       <div className="arch-row">
         <Column label="Clients" items={a.clients} />
         <Flow />
-        <Column label="Backend" items={[a.api]} core />
+        <Column label={a.coreLabel ?? "Backend"} items={[a.api]} core />
         {a.data.length > 0 ? (
           <>
             <Flow />

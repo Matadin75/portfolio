@@ -258,12 +258,95 @@ function ForFishSake() {
   );
 }
 
+/* FitTrack: the day's calorie ring and macros on the phone, a recorded run's route, and home-screen widgets. */
+function FitTrack() {
+  const ring = 2 * Math.PI * 46;
+  const macros = [
+    { w: 112, cls: "pv-accent" },
+    { w: 78, cls: "pv-violet" },
+    { w: 96, cls: "pv-accent" },
+  ];
+  const week = [52, 70, 44, 64, 58, 80, 36];
+  return (
+    <Scene>
+      <Phone x={36} y={40} w={200} h={320} />
+      <circle className="pv-ring-track" cx={136} cy={124} r={46} />
+      <circle
+        className="pv-ring"
+        cx={136}
+        cy={124}
+        r={46}
+        strokeDasharray={`${ring * 0.72} ${ring}`}
+        transform="rotate(-90 136 124)"
+      />
+      <Bar x={114} y={114} w={44} strong />
+      <Bar x={120} y={128} w={32} />
+      {macros.map((m, i) => (
+        <g key={i}>
+          <rect className="pv-muted" x={58} y={194 + i * 18} width={156} height={7} rx={3.5} />
+          <rect className={m.cls} x={58} y={194 + i * 18} width={m.w} height={7} rx={3.5} />
+        </g>
+      ))}
+      {[0, 1].map((i) => (
+        <g key={i}>
+          <rect className="pv-panel" x={52} y={256 + i * 46} width={168} height={38} rx={10} />
+          <Bar x={66} y={268 + i * 46} w={i ? 64 : 82} strong />
+          <Bar x={66} y={280 + i * 46} w={48} />
+          <Bar x={178} y={274 + i * 46} w={28} />
+        </g>
+      ))}
+
+      <rect className="pv-frame" x={262} y={40} width={342} height={180} rx={16} />
+      <path
+        className="pv-route"
+        d="M292 186 C 300 140, 330 120, 352 128 S 392 168, 420 150 S 440 84, 474 76 S 520 104, 500 140"
+      />
+      <circle className="pv-accent" cx={292} cy={186} r={6} />
+      <circle className="pv-violet" cx={500} cy={140} r={6} />
+      <Bar x={528} y={70} w={56} strong />
+      <Bar x={528} y={86} w={40} />
+      <Bar x={528} y={116} w={50} strong />
+      <Bar x={528} y={132} w={34} />
+      <rect className="pv-accent" x={524} y={168} width={64} height={30} rx={15} />
+      <path className="pv-ink-stroke" d="M548 183 l5 5 l10 -11" />
+
+      <rect className="pv-panel" x={262} y={240} width={160} height={120} rx={18} />
+      <circle className="pv-ring-track pv-ring-small" cx={312} cy={300} r={28} />
+      <circle
+        className="pv-ring pv-ring-small"
+        cx={312}
+        cy={300}
+        r={28}
+        strokeDasharray={`${2 * Math.PI * 28 * 0.6} ${2 * Math.PI * 28}`}
+        transform="rotate(-90 312 300)"
+      />
+      <Bar x={354} y={282} w={52} strong />
+      <Bar x={354} y={298} w={38} />
+      <Bar x={354} y={314} w={46} />
+
+      <rect className="pv-panel" x={444} y={240} width={160} height={120} rx={18} />
+      {week.map((h, i) => (
+        <rect
+          key={i}
+          className={i === 5 ? "pv-violet" : "pv-accent-soft"}
+          x={462 + i * 19}
+          y={340 - h}
+          width={12}
+          height={h}
+          rx={4}
+        />
+      ))}
+    </Scene>
+  );
+}
+
 const visuals: Record<string, () => ReactNode> = {
   "ice-games": IceGames,
   secondspace: SecondSpace,
   youtoo: YouToo,
   uptooyoo: Uptooyoo,
   forfishsake: ForFishSake,
+  fittrack: FitTrack,
 };
 
 /** The illustration for a project, labelled as one. */
